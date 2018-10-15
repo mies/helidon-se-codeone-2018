@@ -66,11 +66,10 @@ public class GreetService implements Service {
     /**
      * Create metric counter.
      */
-    /*
+    
      private final MetricRegistry registry = RegistryFactory.getRegistryFactory().get()
         .getRegistry(MetricRegistry.Type.APPLICATION);
-    private final Counter greetCounter = registry.counter("total_requests");
-    8?
+    private final Counter greetCounter = registry.counter("requests_total");
 
     /**
      * A service registers itself by updating the routine rules.
@@ -90,7 +89,7 @@ public class GreetService implements Service {
     private void counterFilter(final ServerRequest request,
                                final ServerResponse response) {
         displayThread();
-        //this.greetCounter.inc();
+        this.greetCounter.inc();
         request.next();
     }
 
