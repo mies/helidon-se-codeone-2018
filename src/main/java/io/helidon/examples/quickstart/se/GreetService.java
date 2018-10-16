@@ -27,7 +27,10 @@ import io.helidon.webserver.ServerRequest;
 import io.helidon.webserver.ServerResponse;
 import io.helidon.webserver.Service;
 import org.eclipse.microprofile.metrics.Counter;
+import org.eclipse.microprofile.metrics.Metadata;
 import org.eclipse.microprofile.metrics.MetricRegistry;
+import org.eclipse.microprofile.metrics.MetricType;
+import org.eclipse.microprofile.metrics.MetricUnits;
 
 /**
  * A simple service to greet you. Examples:
@@ -67,9 +70,19 @@ public class GreetService implements Service {
      * Create metric counter.
      */
     
-     private final MetricRegistry registry = RegistryFactory.getRegistryFactory().get()
+    private final MetricRegistry registry = RegistryFactory.getRegistryFactory().get()
         .getRegistry(MetricRegistry.Type.APPLICATION);
-    private final Counter greetCounter = registry.counter("requests_total");
+    
+
+    private Metadata greetCounterMetadata = new Metadata(
+        "requests_total",
+        "Total Requests",
+        "Number of requests on the endpoint",
+        MetricType.COUNTER,
+        MetricUnits.NONE);
+        
+    //private final Counter greetCounter = registry.counter("requests_total");
+    private final Counter greetCounter = registry.counter(greetCounterMetadata);
 
     /**
      * A service registers itself by updating the routine rules.
