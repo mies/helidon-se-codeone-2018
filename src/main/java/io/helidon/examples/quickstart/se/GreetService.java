@@ -69,20 +69,12 @@ public class GreetService implements Service {
     /**
      * Create metric counter.
      */
-    
+    /**
+     * Create metric counter.
+     */
     private final MetricRegistry registry = RegistryFactory.getRegistryFactory().get()
         .getRegistry(MetricRegistry.Type.APPLICATION);
-    
-
-    private Metadata greetCounterMetadata = new Metadata(
-        "requests_total",
-        "Total Requests",
-        "Number of requests on the endpoint",
-        MetricType.COUNTER,
-        MetricUnits.NONE);
-        
-    //private final Counter greetCounter = registry.counter("requests_total");
-    private final Counter greetCounter = registry.counter(greetCounterMetadata);
+    private final Counter greetCounter = registry.counter("access_counter");
 
     /**
      * A service registers itself by updating the routine rules.
