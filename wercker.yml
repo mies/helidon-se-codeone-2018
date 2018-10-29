@@ -23,13 +23,6 @@ build:
 
 push-release:
   steps:
-    - script:
-        name: prepare
-        code: |
-            ls -la
-            #mv workshop-web /workshop-web
-            ls -la 
-
     - internal/docker-push:
         ports: "8080"
         working-dir: /pipeline/source

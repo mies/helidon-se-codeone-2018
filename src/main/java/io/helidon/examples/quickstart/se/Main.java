@@ -20,27 +20,16 @@ import java.io.IOException;
 import java.util.logging.LogManager;
 
 import io.helidon.config.Config;
-import io.helidon.metrics.MetricsSupport;
 import io.helidon.webserver.Routing;
 import io.helidon.webserver.ServerConfiguration;
 import io.helidon.webserver.WebServer;
 import io.helidon.webserver.json.JsonSupport;
 
+import io.helidon.metrics.MetricsSupport;
+
+
 /**
  * Simple Hello World rest application.
- * DONE:
- *  Basic routing
- *  JSON payload request
- *  JSON payload response
- *  JSON payload async
- *  Metrics
- * TODO:
- *  Tracing
- *  Security
- *  Big payloads (streaming)
- *  Error handling
- *  Logging
- *  Health Check? Maybe not
  */
 public final class Main {
 
@@ -56,8 +45,8 @@ public final class Main {
      */
     private static Routing createRouting() {
         return Routing.builder()
-                .register(JsonSupport.get())
                 .register(MetricsSupport.create())
+                .register(JsonSupport.get())
                 .register("/greet", new GreetService())
                 .build();
     }
