@@ -48,3 +48,22 @@ spec:
         ports:
         - containerPort: 8080
 ---
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ${project.artifactId}
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus
+spec:
+  endpoints:
+  - interval: 30s
+    port: http
+  jobLabel: ${project.artifactId}
+  namespaceSelector:
+    matchNames:
+    - default
+  selector:
+    matchLabels:
+      app: ${project.artifactId}
